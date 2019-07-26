@@ -3829,7 +3829,7 @@ Ragasave.UI.Containers.Popup = function(o){
             position : 'fixed',
             width : '100%',
             height : '100%',
-            zIndex : '9999999999999999999999',
+            zIndex : '9999',
             backgroundColor : o.bgColor || 'rgba(0,0,0,0.10)' ,
             top : 0,
             left : 0
