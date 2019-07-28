@@ -9,12 +9,12 @@ Ragasave_Js
 CDN
 -------------------------------------------------
 ```
-https://cdn.jsdelivr.net/gh/ragasave/ragasave_js/ragasave.js
+https://cdn.jsdelivr.net/gh/ragasave/ragasave_js/src/ragasave.min.js
 ```
 Script
 ------------------------------------------------
 ```
-<script src="https://cdn.jsdelivr.net/gh/ragasave/ragasave_js/ragasave.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ragasave/ragasave_js/src/ragasave.min.js"></script>
 ```
 Get Start
 -------------------------------------------------
