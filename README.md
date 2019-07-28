@@ -1,6 +1,6 @@
 
 
-Ragasave.js
+Ragasave_Js
 ==================================================
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -9,7 +9,7 @@ Ragasave.js
 CDN
 -------------------------------------------------
 ```
-https://cdn.jsdelivr.net/gh/ragasave/JavaScript/ragasave.js
+https://cdn.jsdelivr.net/gh/ragasave/ragasave_js/ragasave.js
 ```
 Script
 ------------------------------------------------
@@ -121,26 +121,70 @@ Ragasave('#clickMe').dblClick(function(){
 ```
 Ragasave('.foo').add('<div></div>');
 ```
-#### -  ***`addClass([className] [classArray])`***
+#### -  ***`after(html1,html2,html3...[,boolean])`***
 ```
-Ragasave('.foo').addClass('test test2');
-
-Ragasave('.foo').addClass(['test1','test2']);
+Ragasave('.foo').after('<div>div</div>','<div>div2</div>',true);
 ```
-#### -  ***`after([className] [classArray])`***
+#### -  ***`attr(attr)`***
 ```
-Ragasave('.foo').addClass('test test2');
+Ragasave(".bar").attr('name');// get value of name attribute
 
-Ragasave('.foo').addClass(['test1','test2']);
+// set value of name attribute
+Ragasave(".bar").attr('name','last_name');
 ```
-
-
 #### -  ***`animate(style [duration] [,callback])`***
 ```
 Ragasave(".bar").animate({
 	top : 10
 },2000);
 ```
+
+
+#### -  ***`before(html1,html2,html3...[,boolean])`***
+```
+Ragasave('.foo').before('<div>div</div>','<div>div2</div>',true);
+```
+#### -  ***`clone([depth])`***
+```
+Ragasave('.foo').clone(true);
+```
+#### -  ***`css(object)`***
+```
+Ragasave('.foo').css({
+	color : 'red',
+	width : 100
+});
+```
+#### -  ***`delAttr(attr)`***
+```
+Ragasave('.foo').delAttr('name');
+```
+> Alternative  method `removeAttr(attr)`
+
+#### -  ***`delClass(class)`***
+```
+Ragasave('.foo').delClass('test1');
+```
+> Alternative  method `removeClass(class)`
+
+#### -  ***`each(callback)`***
+```
+// Itrate Each Element With .foo class
+Ragasave('.foo').each(function(elem, index){
+	// Code Here
+});
+```
+#### -  ***`exClass(class1,class2)`***
+`exClass` replaces the `class1` to `class2`.  
+```
+Ragasave('.foo').exClass('test1', 'test');
+```
+#### -  ***`find(selector)`***
+`find` search the given selector into child elements.  
+```
+Ragasave('.foo').find('#test1');
+```
+
 #### -  ***`first([depth] [,callback])`***
 ```
 Ragasave(".bar").first();
@@ -247,6 +291,31 @@ Ragasave('head').loadScript({
 });
 
 ```
+#### -  ***`on(type, handler [,eventKey] [,useCapture])`***
+`on` binds event to selected elements.
+```
+Ragasave('.clickable').on('click',function(){
+	// Code Here
+});
+
+```
+#### -  ***`off(type [,handler] [,eventKey])`***
+`on` unbinds event to selected elements by using `eventKey` or `event handler function`.
+```
+function func(){
+	// Code Here
+}
+// bind event
+Ragasave('.clickable').on('click',func,'myfunction');
+
+// remove event by handler
+Ragasave('.clickable').off('click',func);
+
+// or by eventKey
+// remove event by handler
+Ragasave('.clickable').off('click','myfunction');
+
+```
 #### -  ***`prev([nth] [,callback])`***
 ```
 Ragasave(".bar").prev();
@@ -273,6 +342,14 @@ Ragasave(".bar").show();
 Ragasave(".bar").unwrap('.parent');
 ```
 
+#### -  ***`val([v])`***
+`val` to set or get the `value` of input fields. 
+```
+Ragasave("input").val('test');//set value of input
+
+Ragasave("input").val();//get value of input
+```
+
 #### -  ***`width([height] [,callback])`***
 ```
 Ragasave(".bar").width(); // Get width of element
@@ -286,7 +363,63 @@ Ragasave(".bar").width(function(width,elem){
 
 ```
 
-#### -  ***`wrap()`***
+#### -  `wrap()`
 ```
 Ragasave(".bar").wrap('<div></div>');
 ```
+
+
+### *Prototypes*
+
+- #### `Ragasave : {}`
+	- `Ajax : ƒ`
+	- `App : {}`
+		- `TextEditor : {}`
+		- `View : Class View` 
+		- `ViewData : Class ViewData`
+		- `ViewList : Class ViewList`
+	- `Event : {}`
+		- `add : ƒ`
+		- `getStack : ƒ`
+		- `push : ƒ``
+		- `remove: ƒ`
+		- `removeStack : ƒ` 
+	- `UI : {}`
+		- `Containera : {}`
+			- `Column : ƒ`
+			- `Popup : ƒ`
+			- `Tab : ƒ`
+		- `Controls : {}`
+			- `Button : ƒ`
+			- `CheckBox : ƒ`
+			- `Radio : ƒ`
+			- `SelectBox : ƒ`
+			- `TextField : ƒ`
+			- `init : ƒ`
+			- `submit : ƒ`
+			- `throwError : ƒ`
+			- `validate : ƒ`
+		- `Layout : {}`
+			- `Center : ƒ`
+			- `Middle : ƒ`
+		- `Ragasave.ajaxBefore : ƒ`
+		- `Ragasave.ajaxEnd : ƒ`
+		- `Ragasave.ajaxError : ƒ`
+		- `Ragasave.ajaxJson : ƒ `
+		- `Ragasave.ajaxProcess : ƒ`
+		- `Ragasave.ajaxProgress : ƒ`
+		- `Ragasave.ajaxStart : ƒ`
+		- `Ragasave.ajaxSuccess : ƒ`
+		- `Ragasave.camelToDash : ƒ`
+		- `Ragasave.createNode : ƒ`
+		- `Ragasave.extend : ƒ`
+		- `Ragasave.form : ƒ`
+		- `Ragasave.getMouseDirX : ƒ`
+		- `Ragasave.get: ƒ `
+		- `Ragasave.getMouseDirY : ƒ`
+		- `Ragasave.getMouseDirection : ƒ`
+		- `Ragasave.onInput : {}`
+			- `validation : ƒ`
+		- `Ragasave.post : ƒ`
+		- `Ragasave.unit : ƒ`
+		- `Ragasave.style : ƒ`
