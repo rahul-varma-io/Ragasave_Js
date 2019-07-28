@@ -14,7 +14,7 @@ https://cdn.jsdelivr.net/gh/ragasave/ragasave_js/ragasave.js
 Script
 ------------------------------------------------
 ```
-<script src="https://cdn.jsdelivr.net/gh/ragasave/JavaScript/ragasave.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ragasave/ragasave_js/ragasave.js"></script>
 ```
 Get Start
 -------------------------------------------------
