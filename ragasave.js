@@ -24,7 +24,9 @@ License along with this library; if not, see https://gnu.org/licenses.
  * @Email: ragasave@gmail.com
  * @Website: ragasave.com
  */
-(function () {
+
+(function (window) {
+	"use strict";
 	const JHTML = {
 		DOCTYPE: "!DOCTYPE",
 		A: "a",
@@ -498,6 +500,15 @@ License along with this library; if not, see https://gnu.org/licenses.
 	 */
 	EventMgmt.remove = function (e, t, h, b) {
 		b = b || F;
+		function remove(t, h) {
+			if (e.removeEventListener) {
+				e.removeEventListener(t, h, b);
+			} else if (e.detachEvent) {
+				e.detachEvent("on" + t, h);
+			} else {
+				e["on" + t] = function () {};
+			}
+		}
 		if (e.nodeType === 1 || e === doc || e === win) {
 			let ei = EventStack.target.indexOf(e);
 			if (ei === -1) {
@@ -523,15 +534,6 @@ License along with this library; if not, see https://gnu.org/licenses.
 				}
 			};
 
-			function remove(t, h) {
-				if (e.removeEventListener) {
-					e.removeEventListener(t, h, b);
-				} else if (e.detachEvent) {
-					e.detachEvent("on" + t, h);
-				} else {
-					e["on" + t] = function () {};
-				}
-			}
 		}
 	};
 
@@ -629,7 +631,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 	 */
 
 	_rc.prepareNode = function (o, nl, c, b, d) {
-		(d && typeof d === _b) ? d: F; /* if 5th argument (d) is assigned as true then swipe it to false*/
+		d = (d && typeof d === _b) ? d: F; /* if 5th argument (d) is assigned as true then swipe it to false*/
 		b = (typeof b === _u || b === N) ? F : b; /* swipping   */
 		if (nl && (nl.nodeType === 1 || nl.nodeType === 11 || typeof nl === _s || _rc.typeOf(nl) === _o)) {
 			prepare(nl);
@@ -692,41 +694,41 @@ License along with this library; if not, see https://gnu.org/licenses.
 		}
 		let e = N,
 			p;
-		(n.tag) ? (e = doc.createElement(n.tag)) : N;
-		(e && n.class) ? (e.className = n.class) : N;
-		(e && n.id) ? (e.id = n.id) : N;
-		(e && n.type) ? (e.setAttribute("type", n.type)) : N;
-		(e && n.hidden) ? (e.setAttribute("hidden", n.hidden)) : N;
-		(e && n.name) ? (e.setAttribute("name", n.name)) : N;
-		(e && n.value) ? (e.value = n.value) : N;
-		(e && n.disabled) ? (e.setAttribute("disabled", '')) : N;
-		(e && n.title) ? (e.setAttribute("title", n.title)) : N;
-		(e && n.alt) ? (e.setAttribute("alt", n.alt)) : N;
-		(e && n.href) ? (e.setAttribute("href", n.href)) : N;
-		(e && n.src) ? (e.setAttribute("src", n.src)) : N;
-		(e && n.text) ? (e.innerText = n.text) : N;
-		(e && n.css) ? (function () {
+		if(n.tag){(e = doc.createElement(n.tag))}
+		if(e && n.class) {(e.className = n.class)}
+		if(e && n.id) {(e.id = n.id) }
+		if(e && n.type) {(e.setAttribute("type", n.type))}
+		if(e && n.hidden) {(e.setAttribute("hidden", n.hidden))}
+		if(e && n.name) {(e.setAttribute("name", n.name)) }
+		if(e && n.value) {(e.value = n.value) }
+		if(e && n.disabled){(e.setAttribute("disabled", '')) }
+		if(e && n.title) {(e.setAttribute("title", n.title)) }
+		if(e && n.alt) {(e.setAttribute("alt", n.alt))}
+		if(e && n.href) {(e.setAttribute("href", n.href))}
+		if(e && n.src)  {(e.setAttribute("src", n.src)) }
+		if(e && n.text) { (e.innerText = n.text) }
+		if(e && n.css) {
 			for (let p in n.css) {
 				e.style[p] = _rc.size(n.css[p], p);
 			}
-		}()) : N;
-		(e && n.attr) ? (function () {
+		}
+		if(e && n.attr) {
 			for (let p in n.attr) {
 				e.setAttribute(p, n.attr[p]);
 			}
-		}()) : N;
-		(e && n.proto) ? (function () {
+		}
+		if(e && n.proto) {
 			for (let p in n.proto) {
 				e[p] = n.proto[p];
 			}
-		}()) : N;
-		(e && n.ready) ? (n.ready(e)) : N;
-		(e && n.bind) ? (function () {
+		}
+		if(e && n.ready) {(n.ready(e)) }
+		if(e && n.bind){
 			n.bind.forEach(function (o) {
 				EventMgmt.add(e, o.type, o.handler, o.useCapture, o.key || null);
 			});
-		}()) : N;
-		(e && n.html) ? (function () {
+		}
+		if(e && n.html){
 			if (typeof n.html === _o) {
 				for (var j = 0; j < n.html.length; j++) {
 					e.append(n.html[j]);
@@ -734,7 +736,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 			} else {
 				e.innerHTML = n.html;
 			}
-		}()) : N;
+		}
 		return e;
 	};
 
@@ -1148,15 +1150,15 @@ License along with this library; if not, see https://gnu.org/licenses.
 
 	_n.wrap = function (o, n, b) {
 		return _rc.prepareNode(o, n, function (e, nn) {
-			let = f = _rc.docFragment();
+			let f = _rc.docFragment();
 			if (nn.nodeType === 1) {
 				nn.appendChild(_rc.cloneNode(e, T));
 				f.appendChild(nn);
 				Ragasave(e).replaceWith(nn);
-				if (!b) {
-					/* EventMgmt.removeStack(e);*/
+				/*if (!b) {
+					 EventMgmt.removeStack(e);
 
-				}
+				}*/
 			}
 
 		}, b);
@@ -1188,7 +1190,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		if (c && typeof c === _f) {
 			_rc.evaluate(o, function (e) {
 				let pe = p(e);
-				pe ? c(e, pe) : N;
+				if(pe) {c(e, pe) }
 			});
 			return o;
 		} else {
@@ -1690,7 +1692,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @returns {object} 
 		 */
 		each(c) {
-			(typeof c !== _u && typeof c === _f ? _rc.each(this, c) : N);
+			if(typeof c !== _u && typeof c === _f ){_rc.each(this, c)};
 			return this;
 		};
 		/*
@@ -2012,7 +2014,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 					_rc.evaluate(this, function (e, i) {
 						let x = e[v];
 						let s = c(e, x);
-						(s) ? e.style[p] = _rc.size(s): null;
+						if(s) {e.style[p] = _rc.size(s)}
 					});
 					return this;
 				} else {
@@ -2033,7 +2035,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 					_rc.evaluate(this, function (e, i) {
 						let x = e['offset' + p.replace(p[0], p[0].toUpperCase())];
 						let s = c(x, e);
-						(s) ? e.style[p] = _rc.size(s): null;
+						if(s) {e.style[p] = _rc.size(s)}
 					});
 					return this;
 				} else if (c && (typeof c === _s || typeof c === _d)) {
@@ -2074,8 +2076,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 					let p2v = _rc.getNum(_rc.getCss(e)["padding-" + p2]);
 					let size = _rc.getNum(e['offset' + p.replace("inner", "")]);
 
-					x = p1v + p2v + size;
-					return x;
+					return p1v + p2v + size;
 				}
 			}
 		});
@@ -2105,8 +2106,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 					let p2v = _rc.getNum(_rc.getCss(e)["padding-" + p2]);
 					let b1 = _rc.getNum(_rc.getCss(e).borderWidth);
 					let size = _rc.getNum(e['offset' + p.replace("outer", "")]);
-					x = p1v + p2v + b1 + m1 + m2 + size;
-					return x;
+					return p1v + p2v + b1 + m1 + m2 + size;
 				}
 			}
 		});
@@ -2215,15 +2215,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		},
 		prevOrNext: function () {
 			var prev = _n.nebE(this, "previousElementSibling");
-			if (nxt.isEmpty()) {
-				return _n.nebE(this, "nextElementSibling");
-			} else {
-				return prev;
-			}
-		},
-		prevOrNext: function () {
-			var prev = _n.nebE(this, "previousElementSibling");
-			if (nxt.isEmpty()) {
+			if (prev.isEmpty()) {
 				return _n.nebE(this, "nextElementSibling");
 			} else {
 				return prev;
@@ -2420,7 +2412,14 @@ License along with this library; if not, see https://gnu.org/licenses.
 	this.JHTML = JHTML;
 	this.RagasaveColors = RagasaveColors;
 	return this;
-})();
+})(window);
+var JHTML = window.JHTML,
+	createNode = window.createNode,
+	Ragasave = window.Ragasave,
+	rc = window.rc,
+	RagasaveColors = window.RagasaveColors,
+	objType = window.objType;
+
 (function () {
 	var lastMP = {};
 	var out;
@@ -2524,8 +2523,8 @@ Ragasave.extend({
 			position: "absolute",
 			border: "3px solid #FFC107"
 		};
-		var div;
-		var callback = typeof options === "undefined" ? options : callback;
+		var div,callback;
+		callback = typeof options === "undefined" ? options : callback;
 		callback = callback || null;
 		if (this[0] && this[0].nodeType === 1) {
 			div = this[0];
@@ -2535,10 +2534,7 @@ Ragasave.extend({
 		element = div;
 		const toolActive = element.querySelector(".rc-draggableBoxUI") === null ? !1 : !0;
 		if (options !== "undefined" && typeof options === "object") {
-			if (options.toggle && options.toggle === !0) {
-				window.addEventListener("click", toggle)
-			}
-
+			
 			function toggle(event) {
 				if (!toolActive && event.target !== element) {
 					if (!event.target.isOf(element)) {
@@ -2547,6 +2543,9 @@ Ragasave.extend({
 					}
 				}
 				event.preventDefault()
+			}
+			if (options.toggle && options.toggle === !0) {
+				window.addEventListener("click", toggle)
 			}
 			/*if (!options.border) {
 			 style.border = style.border || "3px solid #FFC107"
@@ -2557,7 +2556,7 @@ Ragasave.extend({
 		} else if (options && options.handle && !Ragasave(options.handle).isEmpty()) {
 			handle = Ragasave(options.handle)[0];
 		} else {
-			addElem({
+			window.addElem({
 				tag: JHTML.DIV,
 				class: "rc-draggableBoxUI",
 				attr: {
@@ -2624,9 +2623,7 @@ Ragasave.extend({
 		const element = div;
 		const toolActive = element.querySelector(".rc-resizerBoxUI") === null ? !1 : !0;
 		if (options !== "undefined" && typeof options === "object") {
-			if (options.toggle && options.toggle === !0) {
-				window.addEventListener("click", toggle)
-			}
+			
 
 			function toggle(event) {
 				if (!toolActive && event.target !== element) {
@@ -2636,6 +2633,9 @@ Ragasave.extend({
 					}
 				}
 				event.preventDefault()
+			}
+			if (options.toggle && options.toggle === !0) {
+				window.addEventListener("click", toggle)
 			}
 		}
 		if (!toolActive) {
@@ -2771,7 +2771,7 @@ Ragasave.extend({
 			for (let i = 0; i < resizers.length; i++) {
 				const currentResizer = resizers[i];
 				currentResizer.addEventListener('mousedown', function (e) {
-					event.preventDefault();
+					e.preventDefault();
 					originalWidth = parseFloat(getComputedStyle(element, null).getPropertyValue('width').replace('px', ''));
 					originalHeight = parseFloat(getComputedStyle(element, null).getPropertyValue('height').replace('px', ''));
 					x = element.offsetLeft;
@@ -2862,7 +2862,7 @@ Ragasave.extend({
 	rippleEffect: function (options) {
 		if (!Ragasave("[style-name=ripple]")[0]) {
 
-			addElem({
+			window.addElem({
 				tag: JHTML.STYLE,
 				attr: {
 					type: "text/css",
@@ -2905,7 +2905,7 @@ Ragasave.extend({
 			Ragasave(this).css({
 				position: "relative"
 			});
-			addElem({
+			window.addElem({
 				tag: JHTML.DIV,
 				attr: {
 					"rc-RippleUI": ""
@@ -3048,6 +3048,7 @@ Ragasave.extend({
 
 
 		fn.dragStart = function (f, element) {
+			var event = window.event; 
 			element = element || fn.element;
 			element.dragStart(function (event) {
 				f(this);
@@ -3062,6 +3063,7 @@ Ragasave.extend({
 
 
 		fn.dragOver = function (f, element) {
+			var event = window.event; 
 			element = element || fn.element;
 			element.dragOver(function (event) {
 				event.preventDefault();
@@ -3092,6 +3094,7 @@ Ragasave.extend({
 
 
 		fn.dragLeave = function (f, element) {
+			var event = window.event; 
 			element = element || fn.element;
 			element.dragLeave(function (event) {
 				f(this);
@@ -3132,6 +3135,7 @@ Ragasave.extend({
 
 
 		fn.dragEnd = function (f, element) {
+			var event = window.event; 
 			element = element || fn.element;
 			element.dragEnd(function (event) {
 				f(this);
@@ -3144,17 +3148,17 @@ Ragasave.extend({
 
 
 		fn.setData = function (key, value) {
-			event.dataTransfer.setData(key, value);
+			window.event.dataTransfer.setData(key, value);
 		};
 
 
 		fn.getData = function (key) {
-			return event.dataTransfer.getData(key);
+			return window.event.dataTransfer.getData(key);
 		};
 
 
 		fn.setImg = function (img, y, x) {
-			event.dataTransfer.setDragImage(img, y || 0, x || 0);
+			window.event.dataTransfer.setDragImage(img, y || 0, x || 0);
 		};
 
 
@@ -3215,7 +3219,7 @@ Ragasave.extend({
 
 
 		fn.subList = function (element) {
-			let x = event.offsetX;
+			let x = window.event.offsetX;
 			let w = element.offsetWidth;
 			let d = Ragasave(element);
 			let l = d.attr(rclist);
@@ -3315,9 +3319,9 @@ Ragasave.extend({
 						element.setAttribute(rclist, list);
 					}
 					let attr = element.getAttribute(rclist);
-					if (attr === sublist) {
+					/* if (attr === sublist) {
 
-					}
+					 }*/
 
 					if (attr === sublistlt) {
 						let n = element.previousElementSibling;
@@ -3405,7 +3409,7 @@ Ragasave.extend({
 
 
 		fn.splitX = function (element, f1, f2) {
-			let y = event.offsetY;
+			let y = window.event.offsetY;
 			let h = element.offsetHeight / 2;
 			if (y > h) {
 				f1();
@@ -3461,7 +3465,7 @@ Ragasave.extend({
 					mode: fn.mode
 				}));
 				let pos = element.firstElementChild.getBoundingClientRect();
-				fn.setImg(element, (event.pageX - pos.left), (event.pageY - pos.top));
+				fn.setImg(element, (window.event.pageX - pos.left), (window.event.pageY - pos.top));
 				Ragasave(element).attr({
 					'data-key': fn.dataId
 				});
@@ -3491,7 +3495,7 @@ Ragasave.extend({
 				fn.finalState = fn.currentState;
 				Ragasave('[droppable-place-holder]').hide();
 				Ragasave('[droppable-drop-flag]').remove();
-				(fn.displace === false) ? element.setAttribute(rclist, fn.finalState): null;
+				if(fn.displace === false) {element.setAttribute(rclist, fn.finalState)};
 				fn.arrangeList();
 				Ragasave(fn.selector).css({
 					display: fn.DEDisplay
@@ -4687,7 +4691,7 @@ Ragasave.UI.Containers.Popup = function (o) {
 			};
 			fn.bind = function () {
 				fn._Node.ready = function (e) {
-					o.ready && typeof o.ready === 'function' ? o.ready(e) : null;
+					if(o.ready && typeof o.ready === 'function'){ o.ready(e)};
 					Ragasave(e).rippleEffect();
 				};
 			};
@@ -4782,6 +4786,7 @@ Ragasave.UI.Containers.Popup = function (o) {
 			return createNode(fn._Node);
 		},
 		CheckBox: function (o) {
+			var IAttr;
 			o = o || {};
 			o.bind = o.bind || [];
 			IAttr = o.IAttr || {};
@@ -4888,7 +4893,7 @@ Ragasave.UI.Containers.Popup = function (o) {
 					bind: o.bind,
 					ready: function (e) {
 
-						o.ready && typeof o.ready === 'function' ? o.ready(e) : null;
+						if(o.ready && typeof o.ready === 'function') { o.ready(e)}
 
 					}
 
@@ -5129,7 +5134,7 @@ Ragasave.UI.Containers.Popup = function (o) {
 					bind: o.bind,
 					ready: function (e) {
 
-						o.ready && typeof o.ready === 'function' ? o.ready(e) : null;
+						if(o.ready && typeof o.ready === 'function') {o.ready(e);}
 
 					}
 
@@ -5382,7 +5387,6 @@ Ragasave.UI.Containers.Popup = function (o) {
 								textAlign: 'center',
 								fontSize: 11,
 								minWidth: 30,
-								minWidth: 30,
 								position: 'relative',
 								top: 1.5,
 								width: 30,
@@ -5397,7 +5401,7 @@ Ragasave.UI.Containers.Popup = function (o) {
 							css: {
 								textOverflow: 'ellipsis',
 								whiteSpace: 'nowrap',
-								width: 'auto',
+								/*width: 'auto',*/
 								verticalAlign: 'middle',
 								display: 'table-cell',
 								overflow: 'hidden',
@@ -6050,10 +6054,10 @@ Ragasave.UI.Containers.Popup = function (o) {
 					};
 
 				} else {
-					//fn._Node.class += ' '+c.act_bg__+cE[o.color]+' '+c.rc__transition+' '+ c.bg__+cE[o.color]
-					if (!o.view || o.view === 'rect') {
-						//fn._Node.class += ' '+c.sm_shadow__;
-					}
+					/*fn._Node.class += ' '+c.act_bg__+cE[o.color]+' '+c.rc__transition+' '+ c.bg__+cE[o.color]
+					/*if (!o.view || (o.view === 'rect')) {
+						fn._Node.class += ' '+c.sm_shadow__;
+					}*/
 				}
 				if (o.css) {
 					Ragasave(o.css).each(function (p, v) {
@@ -6107,7 +6111,7 @@ Ragasave.UI.Containers.Popup = function (o) {
 
 		submit: function (o) {
 			if (o.useAjax && o.form) {
-				Ragasave(o.form).submit(function () {
+				Ragasave(o.form).submit(function (e) {
 					var isReady = true;
 					if (o.validate) {
 						var result = validate(Ragasave(o.form));
@@ -6159,7 +6163,7 @@ Ragasave.UI.Containers.Popup = function (o) {
 					}
 					if (result.result) {
 						var data = {};
-						inputs, each(function (el) {
+						inputs.each(function (el) {
 							data[el.getAttribute('name')] = el.value;
 						});
 						if (o.start) {
@@ -6440,7 +6444,7 @@ Ragasave.UI.Containers.Popup = function (o) {
 						break;
 					case 'mixpassword':
 						var result = [];
-						for (p in mixPassword) {
+						for (var p in mixPassword) {
 							if (mixPassword[p].test(val)) {
 								result = true;
 							} else {
