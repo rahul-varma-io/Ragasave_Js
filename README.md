@@ -116,21 +116,45 @@ Ragasave('#clickMe').dblClick(function(){
 #### -  ***`submit(callback [,eventKey] [,useCapture])`***
 
 ### *DOM*
-#### -  ***`animate(style [,duration] [,callback])`***
+
+#### -  ***`add(html)`***
+```
+Ragasave('.foo').add('<div></div>');
+```
+#### -  ***`addClass([className] [classArray])`***
+```
+Ragasave('.foo').addClass('test test2');
+
+Ragasave('.foo').addClass(['test1','test2']);
+```
+#### -  ***`after([className] [classArray])`***
+```
+Ragasave('.foo').addClass('test test2');
+
+Ragasave('.foo').addClass(['test1','test2']);
+```
+
+
+#### -  ***`animate(style [duration] [,callback])`***
 ```
 Ragasave(".bar").animate({
 	top : 10
 },2000);
 ```
-#### -  ***`first([,depth] [,callback])`***
+#### -  ***`first([depth] [,callback])`***
 ```
 Ragasave(".bar").first();
 ```
-> Alternative  method `firstChild([,depth] [,callback])`
+> Alternative  method `firstChild([depth] [,callback])`
 
-#### -  ***`height([,callback])`***
+#### -  ***`last([depth] [,callback])`***
 ```
+Ragasave(".bar").last();
+```
+> Alternative  method `lastChild([depth] [,callback])`
 
+#### -  ***`height([height] [,callback])`***
+```
 Ragasave(".bar").height(); // Get height of element
 
 Ragasave(".bar").height(10); // Set height of .bar to 10
@@ -140,4 +164,129 @@ Ragasave(".bar").height(function(height,elem){
 	return height * 10; 
 });  
 
+```
+#### -  ***`hide([boolean])`***
+```
+Ragasave(".bar").hide(); // hide all element with class .bar
+
+Ragasave(".bar").hide(true); // hide first element
+```
+
+#### -  ***`show([boolean])`***
+```
+Ragasave(".bar").show(); // show all element with class .bar
+
+Ragasave(".bar").show(true); // show first element
+```
+
+#### -  ***`innerHeight([boolean])`***
+```
+// Get height including padding
+Ragasave(".bar").innerHeight(); 
+
+// Get height including padding and border
+Ragasave(".bar").innerHeight(true);
+  
+```
+
+#### -  ***`innerWidth([boolean])`***
+```
+// Get width including padding
+Ragasave(".bar").innerWidth(); 
+
+// Get width including padding and border
+Ragasave(".bar").innerWidth(true);
+  
+```
+
+
+#### -  ***`innerWidth([boolean])`***
+```
+// Get width including padding
+Ragasave(".bar").innerWidth(); 
+
+// Get width including padding and border
+Ragasave(".bar").innerWidth(true);
+  
+```
+#### -  ***`loadScript(options)`***
+```
+Ragasave('head').loadScript({
+	type : "text/javascript",
+	lang : "javascript",
+	path : ['main.js']
+});
+  
+```
+#### -  ***`loadStyleSheet(options)`***
+```
+Ragasave('head').loadScript({
+	type : "text/css",
+	rel : "stylesheet",
+	path : 'main.css'
+});
+
+```
+#### -  ***`next([nth] [,callback])`***
+```
+Ragasave(".bar").next();
+```
+> Alternative  method `nextSibling:([nth] [,callback])`
+
+#### -  ***`nextOrPrev()`***
+return next element or previous element as existence.
+```
+Ragasave('.foo').nextOrPrev();
+```
+#### -  ***`loadStyleSheet(options)`***
+```
+Ragasave('head').loadScript({
+	type : "text/css",
+	rel : "stylesheet",
+	path : 'main.css'
+});
+
+```
+#### -  ***`prev([nth] [,callback])`***
+```
+Ragasave(".bar").prev();
+```
+> Alternative  method `prevSibling:([nth] [,callback])`
+
+#### -  ***`prevOrNext()`***
+return previous element or next element as existence.
+```
+Ragasave('.foo').prevOrNext();
+```
+
+#### -  ***`remove()`***
+```
+Ragasave(".bar").remove();
+```
+#### -  ***`show([boolean])`***
+```
+Ragasave(".bar").show();
+```
+
+#### -  ***`unwrap()`***
+```
+Ragasave(".bar").unwrap('.parent');
+```
+
+#### -  ***`width([height] [,callback])`***
+```
+Ragasave(".bar").width(); // Get width of element
+
+Ragasave(".bar").width(10); // Set width of .bar to 10
+ 
+// Multliplying the current width of element by 10
+Ragasave(".bar").width(function(width,elem){
+	return width * 10; 
+});  
+
+```
+
+#### -  ***`wrap()`***
+```
+Ragasave(".bar").wrap('<div></div>');
 ```
