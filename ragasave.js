@@ -2281,7 +2281,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		},
 
 		animate: function (style, duration, callback) {
-			if (![0] || this[0].nodeType !== undefined) {
+			if (!this[0] || this[0].nodeType !== undefined) {
 				return this
 			}
 			var elem = this[0];
