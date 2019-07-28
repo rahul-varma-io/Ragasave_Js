@@ -10,6 +10,7 @@ Ragasave_Js
 [![GitHub license](https://img.shields.io/github/license/ragasave/Ragasave_Js)](https://github.com/ragasave/Ragasave_Js/blob/master/LICENSE)
 [![](https://data.jsdelivr.com/v1/package/gh/ragasave/ragasave_js/badge)](https://www.jsdelivr.com/package/gh/ragasave/ragasave_js)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/ragasave/Ragasave_Js?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fragasave%2FRagasave_Js)
+
 CDN
 -------------------------------------------------
 ```
