@@ -3,7 +3,14 @@
 Ragasave_Js
 ==================================================
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+[![GitHub issues](https://img.shields.io/github/issues/ragasave/Ragasave_Js)](https://github.com/ragasave/Ragasave_Js/issues)
+[![GitHub forks](https://img.shields.io/github/forks/ragasave/Ragasave_Js)](https://github.com/ragasave/Ragasave_Js/network)
+[![GitHub stars](https://img.shields.io/github/stars/ragasave/Ragasave_Js)](https://github.com/ragasave/Ragasave_Js/stargazers)
+[![GitHub license](https://img.shields.io/github/license/ragasave/Ragasave_Js)](https://github.com/ragasave/Ragasave_Js/blob/master/LICENSE)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/ragasave/Ragasave_Js?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fragasave%2FRagasave_Js)
+
+
 [![](https://data.jsdelivr.com/v1/package/gh/ragasave/ragasave_js/badge)](https://www.jsdelivr.com/package/gh/ragasave/ragasave_js)
 CDN
 -------------------------------------------------
