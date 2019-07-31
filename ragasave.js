@@ -19,15 +19,13 @@ License along with this library; if not, see https://gnu.org/licenses.
 
  * @Author: rahul varma
  * @Date:   2018-11-14 03:01:32
- * @Last Modified by:   Rahul Varma
- * @Last Modified time: 2019-03-30 11:57:05
  * @Email: ragasave@gmail.com
  * @Website: ragasave.com
  */
 
 (function (window) {
 	"use strict";
-	const JHTML = {
+	var JHTML = {
 		DOCTYPE: "!DOCTYPE",
 		A: "a",
 		ABBR: "abbr",
@@ -138,7 +136,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		VIDEO: "video",
 		WBR: "wbr"
 	};
-	const RagasaveColors = {
+	var RagasaveColors = {
 		primary: {
 			bg: 'rgba(1, 108, 244,1)',
 			active: 'rgb(0, 92, 208)',
@@ -260,38 +258,38 @@ License along with this library; if not, see https://gnu.org/licenses.
 			sh: 'rgba(96, 125, 139, 0.34)'
 		}
 	};
-	const R = {};
-	const _u = "undefined";
-	const _f = "function";
-	const _s = "string";
-	const _o = "object";
-	const _d = "number";
-	const _b = "boolean";
-	const N = null;
-	const doc = window.document;
-	const win = window;
-	const T = true;
-	const F = false;
-	R.fn = {};
+	var R = {},
+	_u = "undefined",
+	_f = "function",
+	_s = "string",
+	_o = "object",
+	_d = "number",
+	_b = "boolean",
+	N = null,
+	doc = window.document,
+	win = window,
+	T = true,
+	F = false;
+	R.fn = {},
 	R._rc = {};
 	/**
 	 * @Event Record Array
 	 */
 	R.Event = {};
 	R.Ajax = {};
-	let Ajax = R.Ajax;
+	var Ajax = R.Ajax;
 	R.Event.mgmt = {};
 	R.Event.stack = [];
-	let EventStack = R.Event.stack;
-	let EventMgmt = R.Event.mgmt;
+	var EventStack = R.Event.stack;
+	var EventMgmt = R.Event.mgmt;
 
 	EventStack.target = [];
 	EventStack.type = [];
 	EventStack.handler = [];
 	EventStack.key = [];
 	EventStack.useC = [];
-	const _rc = R._rc;
-	const _n = R.fn;
+	var _rc = R._rc;
+	var _n = R.fn;
 
 	if (!Element.prototype.matches) {
 		Element.prototype.matches =
@@ -353,27 +351,27 @@ License along with this library; if not, see https://gnu.org/licenses.
 	Element.prototype.isOf = childOf;
 	_rc.each = function (o, c) {
 
-		let out = F;
+		var out = F;
 		if (!o)
 			return F;
 		if (!c)
 			return F;
 		if (typeof c !== _f)
 			return F;
-		let isRc = o instanceof Ragasave_Js;
-		let oIsObj = _n.ot(o) === _o;
+		var isRc = o instanceof Ragasave_Js;
+		var oIsObj = _n.ot(o) === _o;
 		o = isRc && (o.length === 1 && o[0].nodeType === undefined) ? o[0] : o;
 		oIsObj = (isRc && o.length) ? F : oIsObj;
 		if (o instanceof Ragasave_Js && !o.length) {
 			return o;
 		};
 		if (oIsObj) {
-			for (let p in o) {
+			for (var p in o) {
 				c(p, o[p], o);
 			}
 			out = T;
 		} else if (o && o.length > 0) {
-			for (let i = 0; i < o.length; i++) {
+			for (var i = 0; i < o.length; i++) {
 				c(o[i], i);
 			}
 		} else {
@@ -384,7 +382,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 	};
 
 	EventMgmt.push = function (e, t, h, b, k) {
-		let i = EventStack.target.indexOf(e);
+		var i = EventStack.target.indexOf(e);
 		if (i !== -1 && e === (EventStack.target[i])) {
 			EventStack.type[i].push(t);
 			EventStack.key[i].push(k || N);
@@ -407,13 +405,13 @@ License along with this library; if not, see https://gnu.org/licenses.
 	 * @returns {null} 
 	 */
 	EventMgmt.getStack = function (e, t, h) {
-		let i = EventStack.target.indexOf(e);
+		var i = EventStack.target.indexOf(e);
 		if (i === -1) {
 			return F
 		};
-		let evntL = [];
+		var evntL = [];
 		EventStack.type[i].forEach(function (ae, ei) {
-			let p = (t && typeof t === _s && t === ae) ? T : F;
+			var p = (t && typeof t === _s && t === ae) ? T : F;
 			if (p) {
 				if (h && typeof h === _f) {
 					if (h === EventStack.handler[i][ei]) {
@@ -439,7 +437,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 	};
 
 	EventMgmt.removeStack = function (e) {
-		let ei = EventStack.target.indexOf(e);
+		var ei = EventStack.target.indexOf(e);
 		if (ei === -1) {
 			return F
 		};
@@ -510,7 +508,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 			}
 		}
 		if (e.nodeType === 1 || e === doc || e === win) {
-			let ei = EventStack.target.indexOf(e);
+			var ei = EventStack.target.indexOf(e);
 			if (ei === -1) {
 				return F
 			};
@@ -518,11 +516,11 @@ License along with this library; if not, see https://gnu.org/licenses.
 				return F;
 			if (t === N || typeof (t) !== _s)
 				return F;
-			let evntL = EventMgmt.getStack(e, t, h);
+			var evntL = EventMgmt.getStack(e, t, h);
 			if (!evntL) {
 				return F
 			};
-			for (let i = 0; i < evntL.length; i++) {
+			for (var i = 0; i < evntL.length; i++) {
 				remove(t, evntL[i][1]);
 				if (EventStack.type[ei].length === 1) {
 					EventMgmt.removeStack(e);
@@ -538,22 +536,22 @@ License along with this library; if not, see https://gnu.org/licenses.
 	};
 
 	EventMgmt.cloneEvent = function (e, n) {
-		let i = EventStack.target.indexOf(e);
+		var i = EventStack.target.indexOf(e);
 		if (i === -1) {
 			return
 		};
-		let evntL = [];
+		var evntL = [];
 		EventStack.type[i].forEach(function (ae, ei) {
 			evntL.push([ae, EventStack.handler[i][ei], EventStack.useC[i][ei], EventStack.key[i][ei], EventStack.target[i]]);
 		});
-		for (let i = 0; i < evntL.length; i++) {
+		for (var i = 0; i < evntL.length; i++) {
 			EventMgmt.add(n, evntL[i][0], evntL[i][1], evntL[i][2], evntL[i][3]);
 		}
 	}
 
 
 	_rc.off = function (o, t, h) {
-		let n = _n.sa(t);
+		var n = _n.sa(t);
 		if (!n) {
 			return o;
 		}
@@ -567,7 +565,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 
 	_rc.on = function (o, t, c, k, b) {
 		b = k && typeof k === _b ? k : b;
-		let n = _n.sa(t);
+		var n = _n.sa(t);
 		if (!n) {
 			return o;
 		}
@@ -595,9 +593,9 @@ License along with this library; if not, see https://gnu.org/licenses.
 		if (e.nodeType !== 1 && e.nodeType !== 11) {
 			return
 		}
-		let n = e.cloneNode(b);
+		var n = e.cloneNode(b);
 		EventMgmt.cloneEvent(e, n);
-		let cn = n.querySelectorAll("*");
+		var cn = n.querySelectorAll("*");
 		e.querySelectorAll("*").forEach(function (ce, i) {
 			EventMgmt.cloneEvent(ce, cn[i]);
 		});
@@ -658,17 +656,17 @@ License along with this library; if not, see https://gnu.org/licenses.
 		}
 
 		function prepare(n) {
-			let vn = _n.n(n);
+			var vn = _n.n(n);
 			if (!vn)
 				return F;
 			_rc.evaluate(o, function (e) {
 				if (typeof n === _s) {
-					let node = vn;
-					for (let i = 0; i < node.length; i++) {
+					var node = vn;
+					for (var i = 0; i < node.length; i++) {
 						c(e, node[i].cloneNode(d));
 					}
 				} else {
-					let node = _n.cloneNode(vn, d);
+					var node = _n.cloneNode(vn, d);
 					c(e, node);
 				}
 			});
@@ -692,7 +690,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		} else if (n.nodeType === 1) {
 			return n;
 		}
-		let e = N,
+		var e = N,
 			p;
 		if(n.tag){(e = doc.createElement(n.tag))}
 		if(e && n.class) {(e.className = n.class)}
@@ -708,17 +706,17 @@ License along with this library; if not, see https://gnu.org/licenses.
 		if(e && n.src)  {(e.setAttribute("src", n.src)) }
 		if(e && n.text) { (e.innerText = n.text) }
 		if(e && n.css) {
-			for (let p in n.css) {
+			for (var p in n.css) {
 				e.style[p] = _rc.size(n.css[p], p);
 			}
 		}
 		if(e && n.attr) {
-			for (let p in n.attr) {
+			for (var p in n.attr) {
 				e.setAttribute(p, n.attr[p]);
 			}
 		}
 		if(e && n.proto) {
-			for (let p in n.proto) {
+			for (var p in n.proto) {
 				e[p] = n.proto[p];
 			}
 		}
@@ -747,7 +745,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 	}
 
 	_rc.isNode = function (o) {
-		let is = _n.ot(o);
+		var is = _n.ot(o);
 		return (is.endsWith("Element") && is.startsWith("HTML")) ? T : F;
 	}
 	_rc.docFragment = function () {
@@ -773,7 +771,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 	}
 
 	_rc.evaluate = function (o, c) {
-		for (let i = 0; i < o.length; i++) {
+		for (var i = 0; i < o.length; i++) {
 			if (o[i].nodeType === 1 || o[i].nodeType === 11) {
 				c(o[i], i);
 			} else if (o[i] === doc || o[i] === win) {
@@ -802,9 +800,9 @@ License along with this library; if not, see https://gnu.org/licenses.
 		if (!(/^[0-9\-+\s]+([a-zA-Z]+|%)&/g.test(s)) && !(/^[0-9\-\.+\s]+$/).test(s))
 			return s;
 		s = s.replace("+", "");
-		let n = Number(s.replace(/[^0-9-+\.]/g, ''));
-		let u = s.replace(/[^a-zA-z%]+/g, "");
-		let t = /[a-zA-Z%]/g.test(s);
+		var n = Number(s.replace(/[^0-9-+\.]/g, ''));
+		var u = s.replace(/[^a-zA-z%]+/g, "");
+		var t = /[a-zA-Z%]/g.test(s);
 		return (t) ? n + u : n + "px";
 	}
 
@@ -828,14 +826,14 @@ License along with this library; if not, see https://gnu.org/licenses.
 
 	}
 	_rc.runScripts = function (html) {
-		let os = html.querySelectorAll("script");
+		var os = html.querySelectorAll("script");
 		os.forEach(function (s, i) {
-			let attr = {};
-			let oAttr = s.getAttributeNames();
+			var attr = {};
+			var oAttr = s.getAttributeNames();
 			oAttr.forEach(function (n) {
 				attr[n] = s.getAttribute(n);
 			});
-			let ns = Ragasave.createNode({
+			var ns = Ragasave.createNode({
 				tag: "script",
 				attr: attr,
 				html: s.innerText
@@ -947,7 +945,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		if (!o.type) {
 			o.type = "GET"
 		};
-		let x;
+		var x;
 		if (window.XMLHttpRequest) {
 			x = new XMLHttpRequest();
 		} else {
@@ -980,7 +978,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 						if (_rc.removeSpace(o.dataType).toLowerCase() === "json") {
 							var res = JSON.parse(this.response);
 						} else if (_rc.removeSpace(o.dataType).toLowerCase() === "html") {
-							let html = Ragasave.createNode({
+							var html = Ragasave.createNode({
 								tag: "div",
 								html: this.response
 							});
@@ -1023,8 +1021,8 @@ License along with this library; if not, see https://gnu.org/licenses.
 
 
 		if (o.contentType && _rc.typeOf(o.contentType) === _o) {
-			let t = o.contentType;
-			for (let p in t) {
+			var t = o.contentType;
+			for (var p in t) {
 				x.setRequestHeader(p, t[p]);
 			}
 		};
@@ -1046,14 +1044,14 @@ License along with this library; if not, see https://gnu.org/licenses.
 
 	};
 	(function () {
-		let AjaxEvent = {
+		var AjaxEvent = {
 			"ajaxStart": "loadstart",
 			"ajaxEnd": "loadend",
 			"ajaxProgress": "progress",
 			"ajaxError": "error"
 		};
-		for (let e in AjaxEvent) {
-			let v = AjaxEvent[e];
+		for (var e in AjaxEvent) {
+			var v = AjaxEvent[e];
 			Ajax[e] = function (c) {
 				if (window.XMLHttpRequest) {
 					var x = window.XMLHttpRequest;
@@ -1080,13 +1078,13 @@ License along with this library; if not, see https://gnu.org/licenses.
 				}
 			}
 		};
-		let AjaxChangeEvent = {
+		var AjaxChangeEvent = {
 			"ajaxSuccess": 4,
 			"ajaxBefore": 0,
 			"ajaxProcess": 3
 		};
-		for (let e in AjaxChangeEvent) {
-			let v = AjaxChangeEvent[e];
+		for (var e in AjaxChangeEvent) {
+			var v = AjaxChangeEvent[e];
 			Ajax[e] = function (c) {
 				if (window.XMLHttpRequest) {
 					var x = window.XMLHttpRequest;
@@ -1150,7 +1148,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 
 	_n.wrap = function (o, n, b) {
 		return _rc.prepareNode(o, n, function (e, nn) {
-			let f = _rc.docFragment();
+			var f = _rc.docFragment();
 			if (nn.nodeType === 1) {
 				nn.appendChild(_rc.cloneNode(e, T));
 				f.appendChild(nn);
@@ -1169,13 +1167,13 @@ License along with this library; if not, see https://gnu.org/licenses.
 			if (!e.parentNode) {
 				return o
 			};
-			let p = Ragasave(e).parent(n);
+			var p = Ragasave(e).parent(n);
 			if (!p) {
 				return o;
 			} else {
 				p = p[0];
 			}
-			let f = _rc.docFragment();
+			var f = _rc.docFragment();
 			Ragasave(f).append(p.childNodes);
 			Ragasave(p).replaceWith(f);
 		});
@@ -1189,12 +1187,12 @@ License along with this library; if not, see https://gnu.org/licenses.
 		c = s && typeof s === _f ? s : c;
 		if (c && typeof c === _f) {
 			_rc.evaluate(o, function (e) {
-				let pe = p(e);
+				var pe = p(e);
 				if(pe) {c(e, pe) }
 			});
 			return o;
 		} else {
-			let pe = p(o[0]);
+			var pe = p(o[0]);
 			if (!pe) {
 				return Ragasave();
 			} else {
@@ -1203,17 +1201,17 @@ License along with this library; if not, see https://gnu.org/licenses.
 		}
 
 		function p(e) {
-			let pNode;
+			var pNode;
 			pNode = e;
 
 			if (s && !isNaN(s)) {
 				s = Number(s);
-				for (let i = 0; i < s; i++) {
+				for (var i = 0; i < s; i++) {
 					pNode = pNode.parentNode;
 				}
 			} else if (s && typeof s === _s) {
 				try {
-					for (let i = 0; T; i++) {
+					for (var i = 0; T; i++) {
 						if (pNode.matches(s)) {
 							break;
 						} else {
@@ -1229,7 +1227,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 					}
 				}
 			} else if (s && s.nodeType === 1) {
-				for (let i = 0; T; i++) {
+				for (var i = 0; T; i++) {
 					if (pNode === s) {
 						break;
 					} else {
@@ -1260,7 +1258,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		};
 		if (c && typeof c === _f) {
 			_rc.evaluate(o, function (e) {
-				let ce = p(e);
+				var ce = p(e);
 				if (ce) {
 					c(p(e));
 				}
@@ -1268,16 +1266,16 @@ License along with this library; if not, see https://gnu.org/licenses.
 			return o;
 		} else {
 			if (o[0] && o[0].nodeType === 1) {
-				let ce = p(o[0]);
+				var ce = p(o[0]);
 				return Ragasave(ce);
 
 			}
 		}
 
 		function p(e) {
-			let out = e[t];
+			var out = e[t];
 			if (n && Math.abs(n).toString() !== "NaN") {
-				for (let i = 0; i < Math.abs(n); i++) {
+				for (var i = 0; i < Math.abs(n); i++) {
 					if (out[t]) {
 						out = out[t];
 					}
@@ -1357,9 +1355,9 @@ License along with this library; if not, see https://gnu.org/licenses.
 		if (!arr.length || arr === win || arr === doc || _rc.typeOf(arr) === _o || typeof arr === _f || typeof arr === _s) {
 			return F
 		};
-		let l = arr.length;
-		let c = [];
-		for (let i = 0; i < l; i++) {
+		var l = arr.length;
+		var c = [];
+		for (var i = 0; i < l; i++) {
 			c.push(arr[i] instanceof Node);
 		}
 		return (c.includes(F) ? F : T);
@@ -1393,9 +1391,9 @@ License along with this library; if not, see https://gnu.org/licenses.
 	 * @returns {Object} 
 	 * 
 	 */
-	class Ragasave_Js {
-		constructor(selector, i) {
-			let element;
+	
+	var Ragasave_Js = function (selector, i) {
+			var element;
 			if (!selector)
 				return;
 			if (selector instanceof Ragasave_Js) {
@@ -1433,11 +1431,12 @@ License along with this library; if not, see https://gnu.org/licenses.
 				this.length = element.length;
 			}
 			Object.assign(this, element);
-		};
-		splice() {
+			return this;
+		}
+		Ragasave_Js.prototype.splice = function() {
 			return [].splice
 		};
-		i(n) {
+		Ragasave_Js.prototype.i = function(n) {
 			return new Ragasave_Js(this.selector, n);
 		};
 		/*
@@ -1447,7 +1446,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {nubmer | boolean} name : ei
 		 * @returns {undefined} 
 		 */
-		add() {
+		Ragasave_Js.prototype.add = function() {
 
 		};
 		/*
@@ -1455,7 +1454,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {string} name  : s
 		 * @returns {Ragasave Object} 
 		 */
-		text(s) {
+		Ragasave_Js.prototype.text = function(s) {
 			if (!s || typeof s !== _s) {
 				return this[0] && this[0].nodeType === 1 ? this[0].innerText : null;
 			} else {
@@ -1464,7 +1463,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 				});
 			}
 		}
-		html(h) {
+		Ragasave_Js.prototype.html = function(h) {
 			if (!h || typeof h !== _s) {
 				return this[0] && this[0].nodeType === 1 ? this[0].innerHTML : null;
 			} else {
@@ -1474,7 +1473,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 			}
 		}
 
-		val(v) {
+		Ragasave_Js.prototype.val = function(v) {
 			if (!this[0] || !(this[0] instanceof Node)) {
 				return this;
 			}
@@ -1491,9 +1490,9 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {object | string} name  : o
 		 * @returns {string} 
 		 */
-		attr(n) {
+		Ragasave_Js.prototype.attr = function(n) {
 			if (typeof n !== _u) {
-				let out = N;
+				var out = N;
 				switch (typeof n) {
 					case _s:
 						n = _n.sa(n);
@@ -1506,7 +1505,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 						break;
 					case _o:
 						_rc.evaluate(this, function (e) {
-							for (let p in n) {
+							for (var p in n) {
 								e.setAttribute(p, n[p]);
 							}
 						});
@@ -1523,7 +1522,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {string} name  : n
 		 * @returns {object} 
 		 */
-		removeAttr(n) {
+		Ragasave_Js.prototype.removeAttr = function(n) {
 			n = _n.sa(n);
 			if (!n) {
 				return this;
@@ -1540,7 +1539,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {string} name  : n
 		 * @returns {object} 
 		 */
-		delAttr(n) {
+		Ragasave_Js.prototype.delAttr = function(n) {
 			return this.removeAttr(n);
 		};
 		/*
@@ -1548,8 +1547,8 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {string} name  : n
 		 * @returns {boolean} 
 		 */
-		hasAttr(n) {
-			let out = [];
+		Ragasave_Js.prototype.hasAttr = function(n) {
+			var out = [];
 			n = _n.sa(n);
 			if (!n) {
 				return this;
@@ -1565,11 +1564,11 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * #[getAttrs]
 		 * @returns {boolean} 
 		 */
-		getAttrs() {
-			let out = {};
+		Ragasave_Js.prototype.getAttrs = function() {
+			var out = {};
 			if (this[0] && this[0].nodeType === 1) {
-				let e = this[0];
-				let al = e.getAttributeNames();
+				var e = this[0];
+				var al = e.getAttributeNames();
 				al.forEach(function (a) {
 					out[a] = e.getAttribute(a);
 				});
@@ -1581,8 +1580,8 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {string} name  : n
 		 * @returns {boolean} 
 		 */
-		haveAttr(n) {
-			let out = [];
+		Ragasave_Js.prototype.haveAttr = function(n) {
+			var out = [];
 			n = _n.sa(n);
 			if (!n) {
 				return this;
@@ -1597,8 +1596,8 @@ License along with this library; if not, see https://gnu.org/licenses.
 			return out.length === 0 ? Ragasave() : Ragasave(out);
 		};
 
-		not(n) {
-			let out = [];
+		Ragasave_Js.prototype.not = function(n) {
+			var out = [];
 			n = _n.sa(n);
 			if (!n) {
 				return this;
@@ -1617,7 +1616,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {string} name  : n
 		 * @returns {object} 
 		 */
-		addClass(n) {
+		Ragasave_Js.prototype.addClass = function(n) {
 			n = _n.sa(n);
 			if (!n) {
 				return this;
@@ -1634,7 +1633,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {string} name  : n
 		 * @returns {object} 
 		 */
-		toggleClass(n) {
+		Ragasave_Js.prototype.toggleClass = function(n) {
 			n = _n.sa(n);
 			if (!n) {
 				return this;
@@ -1651,7 +1650,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {string} name  : n
 		 * @returns {object} 
 		 */
-		removeClass(n) {
+		Ragasave_Js.prototype.removeClass = function(n) {
 			n = _n.sa(n);
 			if (!n) {
 				return this;
@@ -1668,7 +1667,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {string} name  : n
 		 * @returns {object} 
 		 */
-		delClass(n) {
+		Ragasave_Js.prototype.delClass = function(n) {
 			return this.removeClass(n);
 		};
 		/*
@@ -1676,7 +1675,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {string} name  : n
 		 * @returns {object} 
 		 */
-		exClass(o, n) {
+		Ragasave_Js.prototype.exClass = function(o, n) {
 			n = _n.sa(n);
 			if (!n) {
 				return this;
@@ -1691,7 +1690,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {function} name  : c
 		 * @returns {object} 
 		 */
-		each(c) {
+		Ragasave_Js.prototype.each = function(c) {
 			if(typeof c !== _u && typeof c === _f ){_rc.each(this, c)};
 			return this;
 		};
@@ -1700,8 +1699,8 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {Node} name  : ...n
 		 * @returns {object} 
 		 */
-		before(...n) {
-			let out = [];
+		Ragasave_Js.prototype.before = function(...n) {
+			var out = [];
 			_n.placeNode(this, n, function (e, n) {
 				out.push(n);
 				e.parentNode && e.parentNode.insertBefore(n, e);
@@ -1714,8 +1713,8 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {Node} name  : ...n
 		 * @returns {object} 
 		 */
-		after(...n) {
-			let out = [];
+		Ragasave_Js.prototype.after = function(...n) {
+			var out = [];
 			_n.placeNode(this, n, function (e, n) {
 				out.push(n);
 				e.parentNode && e.parentNode.insertBefore(n, e.nextSibling);
@@ -1728,8 +1727,8 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {Node} name  : ...n
 		 * @returns {object} 
 		 */
-		append(...n) {
-			let out = [];
+		Ragasave_Js.prototype.append = function(...n) {
+			var out = [];
 			_n.placeNode(this, n, function (e, n) {
 				out.push(n);
 				e.appendChild(n);
@@ -1742,8 +1741,8 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {Node} name  : ...n
 		 * @returns {object} 
 		 */
-		prepend(...n) {
-			let out = [];
+		Ragasave_Js.prototype.prepend = function(...n) {
+			var out = [];
 			_n.placeNode(this, n, function (e, n) {
 				out.push(n);
 				e.prepend(n);
@@ -1756,8 +1755,8 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {Node} name  : ...n
 		 * @returns {object} 
 		 */
-		replaceWith(...n) {
-			let out = [];
+		Ragasave_Js.prototype.replaceWith = function(...n) {
+			var out = [];
 			_n.placeNode(this, n, function (e, n) {
 				EventMgmt.removeStack(e);
 				out.push(n);
@@ -1773,7 +1772,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {Node} name  : n [parent node]
 		 * @returns {object} 
 		 */
-		parent(n, c) {
+		Ragasave_Js.prototype.parent = function(n, c) {
 			return _rc.parent(this, n, c);
 		};
 		/*
@@ -1781,8 +1780,8 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {Node} name  : ...n
 		 * @returns {object} 
 		 */
-		clone(b) {
-			let out = [];
+		Ragasave_Js.prototype.clone = function(b) {
+			var out = [];
 			_rc.evaluate(this, function (e) {
 				out.push(_rc.cloneNode(e, b));
 			});
@@ -1797,7 +1796,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {boolean} name : b [useCapture]
 		 * @returns {object} 
 		 */
-		on(t, h, k, b) {
+		Ragasave_Js.prototype.on = function(t, h, k, b) {
 			return _rc.on(this, t, h, k, b);
 		};
 		/*
@@ -1806,7 +1805,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {function || string} name : h [handler || key]
 		 * @returns {object} 
 		 */
-		off(t, h) {
+		Ragasave_Js.prototype.off = function(t, h) {
 			return _rc.off(this, t, h);
 		};
 		/*
@@ -1814,7 +1813,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {function} name : c [handler]
 		 * @returns {object} 
 		 */
-		init(c) {
+		Ragasave_Js.prototype.init = function(c) {
 			if (!c) {
 				return this;
 			};
@@ -1825,7 +1824,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		 * @param {object} name : o [css property ]
 		 * @returns {object} 
 		 */
-		css(o) {
+		Ragasave_Js.prototype.css = function(o) {
 			if (!o && _rc.typeOf(o) !== _o)
 				return this;
 			_rc.evaluate(this, function (e) {
@@ -1836,24 +1835,24 @@ License along with this library; if not, see https://gnu.org/licenses.
 			return this;
 		}
 
-		find(s) {
+		Ragasave_Js.prototype.find = function(s) {
 			if (!s)
 				return this;
 			if (this[0] && this[0].nodeType === 1) {
-				let e = this[0];
-				let ce = e.querySelector(s);
+				var e = this[0];
+				var ce = e.querySelector(s);
 				return (ce && ce.nodeType === 1) ? Ragasave(ce) : Ragasave();
 			} else {
 				return this;
 			}
 		}
 
-		findAll(s) {
+		Ragasave_Js.prototype.findAll = function(s) {
 			if (!s)
 				return this;
 			if (this[0] && this[0].nodeType === 1) {
-				let e = this[0];
-				let ce = e.querySelectorAll(s);
+				var e = this[0];
+				var ce = e.querySelectorAll(s);
 				if (ce.length === 0) {
 					return Ragasave();
 				} else {
@@ -1863,7 +1862,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 				return this;
 			}
 		}
-		isEmpty() {
+		Ragasave_Js.prototype.isEmpty = function() {
 			if (!this.length) {
 				return T;
 			} else {
@@ -1871,13 +1870,12 @@ License along with this library; if not, see https://gnu.org/licenses.
 			};
 		};
 
-		isChildOf(s) {
+		Ragasave_Js.prototype.isChildOf = function(s) {
 			return childOf(s, this[0]);
 		};
-		get activeEvent() {
+		Ragasave_Js.__defineGetter__( 'activeEvent',function() {
 			return EventStack;
-		};
-	}
+		});
 
 	/*
 	 * #[constructor of Ragasave_Js]
@@ -1906,8 +1904,8 @@ License along with this library; if not, see https://gnu.org/licenses.
 		});
 	};
 	Ragasave.createNode = _rc.createNode;
-	this.Ragasave = Ragasave;
-	this.rc = Ragasave;
+	window.Ragasave = Ragasave;
+	window.rc = Ragasave;
 
 	/*
 	 * #[click,dlbclick,change,blur,grag,dragStart,dragLeave,
@@ -1964,7 +1962,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		position: function (c) {
 			if (c && typeof c === _f) {
 				_rc.evaluate(this, function (e, i) {
-					let x = e.getBoundingClientRect();
+					var x = e.getBoundingClientRect();
 					x = {
 						width: x.width,
 						height: x.height,
@@ -1980,8 +1978,8 @@ License along with this library; if not, see https://gnu.org/licenses.
 				return this;
 			} else {
 				if (this[0] && this[0].nodeType === 1) {
-					let ep = this[0].getBoundingClientRect();
-					let p = {
+					var ep = this[0].getBoundingClientRect();
+					var p = {
 						width: ep.width,
 						height: ep.height,
 						top: ep.top,
@@ -2009,18 +2007,18 @@ License along with this library; if not, see https://gnu.org/licenses.
 	}, function (p, v) {
 		Ragasave.extend({
 			[p]: function (c) {
-				let p = v.replace("offset", "").toLowerCase();
+				var p = v.replace("offset", "").toLowerCase();
 				if (c && typeof c === _f) {
 					_rc.evaluate(this, function (e, i) {
-						let x = e[v];
-						let s = c(e, x);
+						var x = e[v];
+						var s = c(e, x);
 						if(s) {e.style[p] = _rc.size(s)}
 					});
 					return this;
 				} else {
 					if (this[0] && this[0].nodeType === 1) {
-						let e = this[0];
-						let x = e[v];
+						var e = this[0];
+						var x = e[v];
 						return x;
 					}
 				}
@@ -2033,8 +2031,8 @@ License along with this library; if not, see https://gnu.org/licenses.
 			[p]: function (c, t) {
 				if (c && typeof c === _f) {
 					_rc.evaluate(this, function (e, i) {
-						let x = e['offset' + p.replace(p[0], p[0].toUpperCase())];
-						let s = c(x, e);
+						var x = e['offset' + p.replace(p[0], p[0].toUpperCase())];
+						var s = c(x, e);
 						if(s) {e.style[p] = _rc.size(s)}
 					});
 					return this;
@@ -2045,8 +2043,8 @@ License along with this library; if not, see https://gnu.org/licenses.
 					return this;
 				} else {
 					if (this[0] && this[0].nodeType === 1) {
-						let e = this[0];
-						let x = e['offset' + p.replace(p[0], p[0].toUpperCase())];
+						var e = this[0];
+						var x = e['offset' + p.replace(p[0], p[0].toUpperCase())];
 						return x;
 					}
 				}
@@ -2057,8 +2055,8 @@ License along with this library; if not, see https://gnu.org/licenses.
 	_rc.each(["innerWidth", "innerHeight"], function (p) {
 		Ragasave.extend({
 			[p]: function (b) {
-				let prop = p.replace("inner", "").toLowerCase();
-				let b1v = 0,
+				var prop = p.replace("inner", "").toLowerCase();
+				var b1v = 0,
 					p1, p2;
 				if (prop === "width") {
 					p1 = "left";
@@ -2068,13 +2066,13 @@ License along with this library; if not, see https://gnu.org/licenses.
 					p2 = "bottom";
 				}
 				if (this[0] && this[0].nodeType === 1) {
-					let e = this[0];
+					var e = this[0];
 					if (b && b === T) {
 						b1v = _rc.getNum(_rc.getCss(e).borderWidth);
 					}
-					let p1v = _rc.getNum(_rc.getCss(e)["padding-" + p1]);
-					let p2v = _rc.getNum(_rc.getCss(e)["padding-" + p2]);
-					let size = _rc.getNum(e['offset' + p.replace("inner", "")]);
+					var p1v = _rc.getNum(_rc.getCss(e)["padding-" + p1]);
+					var p2v = _rc.getNum(_rc.getCss(e)["padding-" + p2]);
+					var size = _rc.getNum(e['offset' + p.replace("inner", "")]);
 
 					return p1v + p2v + size;
 				}
@@ -2085,8 +2083,8 @@ License along with this library; if not, see https://gnu.org/licenses.
 	_rc.each(["outerWidth", "outerHeight"], function (p) {
 		Ragasave.extend({
 			[p]: function (b) {
-				let prop = p.replace("outer", "").toLowerCase();
-				let m1 = 0,
+				var prop = p.replace("outer", "").toLowerCase();
+				var m1 = 0,
 					m2 = 0,
 					p1, p2;
 				if (prop === "width") {
@@ -2097,15 +2095,15 @@ License along with this library; if not, see https://gnu.org/licenses.
 					p2 = "bottom";
 				}
 				if (this[0] && this[0].nodeType === 1) {
-					let e = this[0];
+					var e = this[0];
 					if (b && b === T) {
 						m1 = _rc.getNum(_rc.getCss(e)["margin-" + p1]);
 						m2 = _rc.getNum(_rc.getCss(e)["margin-" + p2]);
 					}
-					let p1v = _rc.getNum(_rc.getCss(e)["padding-" + p1]);
-					let p2v = _rc.getNum(_rc.getCss(e)["padding-" + p2]);
-					let b1 = _rc.getNum(_rc.getCss(e).borderWidth);
-					let size = _rc.getNum(e['offset' + p.replace("outer", "")]);
+					var p1v = _rc.getNum(_rc.getCss(e)["padding-" + p1]);
+					var p2v = _rc.getNum(_rc.getCss(e)["padding-" + p2]);
+					var b1 = _rc.getNum(_rc.getCss(e).borderWidth);
+					var size = _rc.getNum(e['offset' + p.replace("outer", "")]);
 					return p1v + p2v + b1 + m1 + m2 + size;
 				}
 			}
@@ -2144,7 +2142,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		hide: function (t) {
 			if (t && typeof t === _b && t === T) {
 				if (this[0] && this[0].nodeType === 1) {
-					let e = this[0];
+					var e = this[0];
 					e.style.display = "none";
 				}
 			} else {
@@ -2157,7 +2155,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		show: function (t) {
 			if (t && typeof t === _b && t === T) {
 				if (this[0] && this[0].nodeType === 1) {
-					let e = this[0];
+					var e = this[0];
 					e.style.display = "";
 				}
 			} else {
@@ -2292,7 +2290,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 			function toNumber(data) {
 				return Number(data.toString().replace(/[^0-9-+\.]/g, ''))
 			}
-			for (let property in style) {
+			for (var property in style) {
 				if (toNumber(allCssP[property]) < toNumber(style[property])) {
 					CssF[property] = (toNumber(style[property]) - toNumber(allCssP[property])) / 20;
 				} else {
@@ -2302,11 +2300,11 @@ License along with this library; if not, see https://gnu.org/licenses.
 				CCss[property] = toNumber(allCssP[property]);
 			}
 			var l = 0;
-			let starttime = new Date().getTime();
-			let timer = setInterval(function () {
+			var starttime = new Date().getTime();
+			var timer = setInterval(function () {
 				l++;
 
-				for (let property in style) {
+				for (var property in style) {
 					CCss[property] = CCss[property] + CssF[property];
 					var unit = style[property].toString().replace(/[^%a-zA-Z]+/g, '').length > 0 ? style[property].toString().replace(/[^%a-zA-Z]+/g, '') : property === "zIndex" || property === "opacity" ? "" : "px";
 					elem.style[property] = CCss[property].toFixed(2) + unit;
@@ -2369,9 +2367,9 @@ License along with this library; if not, see https://gnu.org/licenses.
 
 	Ragasave.style = function (c) {
 		var style = "";
-		for (let p in c) {
+		for (var p in c) {
 			style += p + "{";
-			for (let r in c[p]) {
+			for (var r in c[p]) {
 				style += Ragasave.camelToDash(r) + ':' + Ragasave.unit(c[p][r]) + ';';
 			}
 			style += "}";
@@ -2397,7 +2395,7 @@ License along with this library; if not, see https://gnu.org/licenses.
 		return _rc.createNode(o);
 	};
 	window.addElem = function (o) {
-		let n = window.createNode(o);
+		var n = window.createNode(o);
 		if (o.parent) {
 			if (o.parent.nodeType === 1) {
 				o.parent.appendChild(n);
@@ -2409,16 +2407,10 @@ License along with this library; if not, see https://gnu.org/licenses.
 	window.objType = function (o) {
 		return _rc.typeOf(o);
 	};
-	this.JHTML = JHTML;
-	this.RagasaveColors = RagasaveColors;
-	return this;
+	window.JHTML = JHTML;
+	window.RagasaveColors = RagasaveColors;
+	return window;
 })(window);
-var JHTML = window.JHTML,
-	createNode = window.createNode,
-	Ragasave = window.Ragasave,
-	rc = window.rc,
-	RagasaveColors = window.RagasaveColors,
-	objType = window.objType;
 
 (function () {
 	var lastMP = {};
@@ -2532,7 +2524,7 @@ Ragasave.extend({
 			return this;
 		}
 		element = div;
-		const toolActive = element.querySelector(".rc-draggableBoxUI") === null ? !1 : !0;
+		var toolActive = element.querySelector(".rc-draggableBoxUI") === null ? !1 : !0;
 		if (options !== "undefined" && typeof options === "object") {
 			
 			function toggle(event) {
@@ -2572,10 +2564,10 @@ Ragasave.extend({
 		}
 
 		function dragTool() {
-			let x = 0;
-			let y = 0;
-			let posX = 0;
-			let posY = 0;
+			var x = 0;
+			var y = 0;
+			var posX = 0;
+			var posY = 0;
 
 			handle.addEventListener("mousedown", function (event) {
 				x = element.getBoundingClientRect().left;
@@ -2589,14 +2581,14 @@ Ragasave.extend({
 			});
 
 			function drag(event) {
-				const left = x + (event.pageX - posX);
-				const top = y + (event.pageY - posY);
+				var left = x + (event.pageX - posX);
+				var top = y + (event.pageY - posY);
 				var data = {
 					x: false,
 					y: false
 				};
 				if (options && options.callback) {
-					let d = options.callback(left, top);
+					var d = options.callback(left, top);
 					if (d) {
 						data = d
 					}
@@ -2620,8 +2612,8 @@ Ragasave.extend({
 		} else {
 			return this;
 		}
-		const element = div;
-		const toolActive = element.querySelector(".rc-resizerBoxUI") === null ? !1 : !0;
+		var element = div;
+		var toolActive = element.querySelector(".rc-resizerBoxUI") === null ? !1 : !0;
 		if (options !== "undefined" && typeof options === "object") {
 			
 
@@ -2760,16 +2752,16 @@ Ragasave.extend({
 					}
 				})]
 			});
-			const resizers = element.querySelectorAll('.rc-resizerUI');
-			const minimumSize = 20;
-			let originalWidth = 0;
-			let originalHeight = 0;
-			let x = 0;
-			let y = 0;
-			let posX = 0;
-			let posY = 0;
-			for (let i = 0; i < resizers.length; i++) {
-				const currentResizer = resizers[i];
+			var resizers = element.querySelectorAll('.rc-resizerUI');
+			var minimumSize = 20;
+			var originalWidth = 0;
+			var originalHeight = 0;
+			var x = 0;
+			var y = 0;
+			var posX = 0;
+			var posY = 0;
+			for (var i = 0; i < resizers.length; i++) {
+				var currentResizer = resizers[i];
 				currentResizer.addEventListener('mousedown', function (e) {
 					e.preventDefault();
 					originalWidth = parseFloat(getComputedStyle(element, null).getPropertyValue('width').replace('px', ''));
@@ -2784,8 +2776,8 @@ Ragasave.extend({
 
 				function resize(e) {
 					if (currentResizer.classList.contains('rc-resizerUI-bottom-right')) {
-						const width = originalWidth + (e.pageX - posX);
-						const height = originalHeight + (e.pageY - posY);
+						var width = originalWidth + (e.pageX - posX);
+						var height = originalHeight + (e.pageY - posY);
 						if (width > minimumSize) {
 							element.style.width = width + 'px'
 						};
@@ -2793,13 +2785,13 @@ Ragasave.extend({
 							element.style.height = height + 'px'
 						};
 					} else if (currentResizer.classList.contains('rc-resizerUI-bottom')) {
-						const height = originalHeight + (e.pageY - posY);
+						var height = originalHeight + (e.pageY - posY);
 						if (height > minimumSize) {
 							element.style.height = height + 'px'
 						};
 					} else if (currentResizer.classList.contains('rc-resizerUI-bottom-left')) {
-						const height = originalHeight + (e.pageY - posY);
-						const width = originalWidth - (e.pageX - posX);
+						var height = originalHeight + (e.pageY - posY);
+						var width = originalWidth - (e.pageX - posX);
 						if (height > minimumSize) {
 							element.style.height = height + 'px'
 						};
@@ -2808,14 +2800,14 @@ Ragasave.extend({
 							element.style.left = x + (e.pageX - posX) + 'px'
 						};
 					} else if (currentResizer.classList.contains('rc-resizerUI-top')) {
-						const height = originalHeight - (e.pageY - posY);
+						var height = originalHeight - (e.pageY - posY);
 						if (height > minimumSize) {
 							element.style.height = height + 'px';
 							element.style.top = y + (e.pageY - posY) + 'px'
 						};
 					} else if (currentResizer.classList.contains('rc-resizerUI-top-right')) {
-						const width = originalWidth + (e.pageX - posX);
-						const height = originalHeight - (e.pageY - posY);
+						var width = originalWidth + (e.pageX - posX);
+						var height = originalHeight - (e.pageY - posY);
 						if (width > minimumSize) {
 							element.style.width = width + 'px'
 						}
@@ -2824,19 +2816,19 @@ Ragasave.extend({
 							element.style.top = y + (e.pageY - posY) + 'px'
 						};
 					} else if (currentResizer.classList.contains('rc-resizerUI-right')) {
-						const width = originalWidth + (e.pageX - posX);
+						var width = originalWidth + (e.pageX - posX);
 						if (width > minimumSize) {
 							element.style.width = width + 'px'
 						};
 					} else if (currentResizer.classList.contains('rc-resizerUI-left')) {
-						const width = originalWidth - (e.pageX - posX);
+						var width = originalWidth - (e.pageX - posX);
 						if (width > minimumSize) {
 							element.style.width = width + 'px';
 							element.style.left = x + (e.pageX - posX) + 'px'
 						};
 					} else {
-						const width = originalWidth - (e.pageX - posX);
-						const height = originalHeight - (e.pageY - posY);
+						var width = originalWidth - (e.pageX - posX);
+						var height = originalHeight - (e.pageY - posY);
 						if (width > minimumSize) {
 							element.style.width = width + 'px';
 							element.style.left = x + (e.pageX - posX) + 'px'
@@ -2856,7 +2848,7 @@ Ragasave.extend({
 				}
 			}
 		}
-		/*let event = new Event(this);
+		/*var event = new Event(this);
 		 (event.stopPropagation) ? event.stopPropagation(): event.cancelBubble = !0*/
 	},
 	rippleEffect: function (options) {
@@ -2947,11 +2939,11 @@ Ragasave.extend({
 Ragasave.extend({
 	dragAndDrop: function (o) {
 		o = o || {};
-		const fn = {};
-		const list = "list";
-		const sublist = "sublist";
-		const sublistlt = "sublistlt";
-		const rclist = 'rcdndlist';
+		var fn = {};
+		var list = "list";
+		var sublist = "sublist";
+		var sublistlt = "sublistlt";
+		var rclist = 'rcdndlist';
 		fn.element = (o.skip ? this.not('[rc-draganddropui]') : this);
 		fn.selector = this.selector;
 		fn.slistlt = o.sublistlt || false;
@@ -3219,12 +3211,12 @@ Ragasave.extend({
 
 
 		fn.subList = function (element) {
-			let x = window.event.offsetX;
-			let w = element.offsetWidth;
-			let d = Ragasave(element);
-			let l = d.attr(rclist);
-			let hl = d.hasAttr(rclist);
-			let prevElem = Ragasave(element).prevSibling();
+			var x = window.event.offsetX;
+			var w = element.offsetWidth;
+			var d = Ragasave(element);
+			var l = d.attr(rclist);
+			var hl = d.hasAttr(rclist);
+			var prevElem = Ragasave(element).prevSibling();
 			prevElem = prevElem[0] && prevElem[0].hasAttribute('data-key') ? prevElem.prevSibling() : prevElem;
 			if (l !== list && prevElem.isEmpty()) {
 				d.attr({
@@ -3274,7 +3266,7 @@ Ragasave.extend({
 
 
 		fn.placeHolder = function (o) {
-			let n = fn.plNode;
+			var n = fn.plNode;
 			var rn = Ragasave(n);
 			n.setAttribute(rclist, fn.currentState || 'list');
 			n.setAttribute('droppable-place-holder', "");
@@ -3291,7 +3283,7 @@ Ragasave.extend({
 		};
 
 		fn.dropFlag = function (t) {
-			let n = fn.dfNode;
+			var n = fn.dfNode;
 			var rn = Ragasave(n);
 			Ragasave(t).css({
 				position: 'relative'
@@ -3318,13 +3310,13 @@ Ragasave.extend({
 					if (!element.previousElementSibling) {
 						element.setAttribute(rclist, list);
 					}
-					let attr = element.getAttribute(rclist);
+					var attr = element.getAttribute(rclist);
 					/* if (attr === sublist) {
 
 					 }*/
 
 					if (attr === sublistlt) {
-						let n = element.previousElementSibling;
+						var n = element.previousElementSibling;
 						n = n && n.hasAttribute('droppable-place-holder') ? n.previousElementSibling : n;
 						if (!n.getAttribute(rclist) || n.getAttribute(rclist) === list) {
 							element.setAttribute(rclist, sublist);
@@ -3332,7 +3324,7 @@ Ragasave.extend({
 					}
 
 					if (!attr || attr == list) {
-						let n = element.nextElementSibling;
+						var n = element.nextElementSibling;
 						n = n && n.hasAttribute('droppable-place-holder') ? n.nextElementSibling : n;
 						if (n && n.getAttribute(rclist) === sublistlt) {
 							n.setAttribute(rclist, sublist);
@@ -3344,9 +3336,9 @@ Ragasave.extend({
 					if (!element.previousElementSibling) {
 						element.setAttribute(rclist, list);
 					}
-					let attr = element.getAttribute(rclist);
+					var attr = element.getAttribute(rclist);
 					if (!attr || (attr == list || attr == sublist)) {
-						let n = element.nextElementSibling;
+						var n = element.nextElementSibling;
 						n = n && n.hasAttribute('droppable-place-holder') ? n.nextElementSibling : n;
 						if (n && n.getAttribute(rclist) === sublistlt) {
 							n.setAttribute(rclist, sublist);
@@ -3359,7 +3351,7 @@ Ragasave.extend({
 					if (!element.previousElementSibling) {
 						element.setAttribute(rclist, list);
 					}
-					let attr = element.getAttribute(rclist);
+					var attr = element.getAttribute(rclist);
 
 					if (attr === sublistlt) {
 						element.setAttribute(rclist, sublist);
@@ -3409,8 +3401,8 @@ Ragasave.extend({
 
 
 		fn.splitX = function (element, f1, f2) {
-			let y = window.event.offsetY;
-			let h = element.offsetHeight / 2;
+			var y = window.event.offsetY;
+			var h = element.offsetHeight / 2;
 			if (y > h) {
 				f1();
 			} else {
@@ -3456,7 +3448,7 @@ Ragasave.extend({
 
 
 			fn.dragStart(function (element) {
-				let s = element.getAttribute(rclist);
+				var s = element.getAttribute(rclist);
 				fn.displace = false; /* displace checks whether the dragged element is on own place or diplaced*/
 				fn.intialState = s ? s : list;
 				fn.currentState = fn.intialState;
@@ -3464,7 +3456,7 @@ Ragasave.extend({
 					dataId: fn.dataId,
 					mode: fn.mode
 				}));
-				let pos = element.firstElementChild.getBoundingClientRect();
+				var pos = element.firstElementChild.getBoundingClientRect();
 				fn.setImg(element, (window.event.pageX - pos.left), (window.event.pageY - pos.top));
 				Ragasave(element).attr({
 					'data-key': fn.dataId
@@ -3488,7 +3480,7 @@ Ragasave.extend({
 			});
 
 			fn.dragEnd(function () {
-				let element = fn.draggedElem;
+				var element = fn.draggedElem;
 				if (!element) {
 					return
 				};
@@ -3560,15 +3552,15 @@ Ragasave.extend({
 		Init();
 
 		function getList() {
-			let d = Ragasave(fn.selector);
-			let m = {};
+			var d = Ragasave(fn.selector);
+			var m = {};
 			m.list = {};
 			m.order = [];
-			let l = m.list;
-			let o = m.order;
+			var l = m.list;
+			var o = m.order;
 
 			d.each(function (e, i) {
-				let or = e.getAttribute('list-order');
+				var or = e.getAttribute('list-order');
 				if (!e.hasAttribute('rcdndlist') || e.getAttribute('rcdndlist') === "list") {
 					o.push(or);
 					l['listID-' + (or)] = [];
@@ -3587,7 +3579,7 @@ Ragasave.extend({
 		return getList;
 	},
 	dropzone: function (p) {
-		let prop = {};
+		var prop = {};
 		prop.type = 'dropzone';
 		if (p.placeholder) {
 			prop.placeholder = p.placeholder;
@@ -4591,7 +4583,7 @@ Ragasave.UI.Containers.Popup = function (o) {
 			if (o.size) {
 				o.size = Number(o.size)
 			}
-			const fn = {};
+			var fn = {};
 			o.color = o.color || 'primary';
 			var tempClass = 'rc-' + new Date().getMilliseconds() + '-' + Math.random().toString(36).substring(2);
 			o.class = o.class || '';
@@ -4835,7 +4827,7 @@ Ragasave.UI.Containers.Popup = function (o) {
 					var cen = 10 - 5 - bord;
 				}
 			}
-			const fn = {};
+			var fn = {};
 			o.color = o.color || 'primary';
 			o.class = o.class || '';
 			if (o.checked && o.checked === true) {
@@ -5076,7 +5068,7 @@ Ragasave.UI.Containers.Popup = function (o) {
 					var cen = 10 - 5 - bord;
 				}
 			}
-			const fn = {};
+			var fn = {};
 			o.color = o.color || 'primary';
 			o.class = o.class || '';
 			if (o.checked && o.checked === true) {
@@ -5295,7 +5287,7 @@ Ragasave.UI.Containers.Popup = function (o) {
 			}];
 
 			o.bind = o.bind.concat(Ibind);
-			const fn = {};
+			var fn = {};
 			o.color = o.color || 'primary';
 			o.class = o.class || '';
 			fn._Node = {
@@ -5703,7 +5695,7 @@ Ragasave.UI.Containers.Popup = function (o) {
 		TextField: function (o) {
 			o = o || {};
 
-			const fn = {};
+			var fn = {};
 			o.color = o.color || 'primary';
 			o.class = o.class || '';
 			o.attr = o.attr || {};
@@ -5746,8 +5738,8 @@ Ragasave.UI.Containers.Popup = function (o) {
 				o.attr['input-type'] = o.regExp;
 				o.attr['regexp'] = true;
 				if (o.value) {
-					let regex = /([`a-zA-Z0-9~!\\@#$%`^&*\(\)_\-+={}\[\]\|:;"'<,>.\/?])/g.toString();
-					let ca = o.regExp.split(' ');
+					var regex = /([`a-zA-Z0-9~!\\@#$%`^&*\(\)_\-+={}\[\]\|:;"'<,>.\/?])/g.toString();
+					var ca = o.regExp.split(' ');
 					ca.forEach(function (c) {
 						regex = regex.replace(c, '');
 					});
@@ -5930,8 +5922,8 @@ Ragasave.UI.Containers.Popup = function (o) {
 													break;
 												default:
 													if (this.hasAttribute('regexp')) {
-														let regex = /([`a-zA-Z0-9~!\\@#$%`^&*\(\)_\-+={}\[\]\|:;"'<,>.\/?])/g.toString();
-														let ca = this.getAttribute('input-type').split(' ');
+														var regex = /([`a-zA-Z0-9~!\\@#$%`^&*\(\)_\-+={}\[\]\|:;"'<,>.\/?])/g.toString();
+														var ca = this.getAttribute('input-type').split(' ');
 														ca.forEach(function (c) {
 															regex = regex.replace(c, '');
 														});
@@ -6465,8 +6457,8 @@ Ragasave.UI.Containers.Popup = function (o) {
 						}
 
 					default:
-						let regex = /([`a-zA-Z0-9~!\\@#$%`^&*\(\)_\-+={}\[\]\|:;"'<,>.\/?])/g.toString();
-						let ca = e.getAttribute('input-type').split(' ');
+						var regex = /([`a-zA-Z0-9~!\\@#$%`^&*\(\)_\-+={}\[\]\|:;"'<,>.\/?])/g.toString();
+						var ca = e.getAttribute('input-type').split(' ');
 						ca.forEach(function (c) {
 							regex = regex.replace(c, '');
 						});
@@ -6623,8 +6615,8 @@ Ragasave.UI.Containers.Popup = function (o) {
 			if (IIRegEx[t]) {
 				this.value = this.value.replace(IIRegEx[t], '');
 			} else {
-				let regex = /([`a-zA-Z0-9~!\\@#$%`^&*\(\)_\-+={}\[\]\|:;"'<,>.\/?])/g.toString();
-				let ca = this.getAttribute('input-type').split(' ');
+				var regex = /([`a-zA-Z0-9~!\\@#$%`^&*\(\)_\-+={}\[\]\|:;"'<,>.\/?])/g.toString();
+				var ca = this.getAttribute('input-type').split(' ');
 				ca.forEach(function (c) {
 					regex = regex.replace(c, '');
 				});
